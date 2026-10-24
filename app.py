@@ -1,5 +1,5 @@
 """
-Flex AiPliz — a free, self-hosted AI assistant.
+Vibes Agent — a free, self-hosted AI assistant.
 Built with Agno (formerly Phidata) + FastAPI.
 """
 import os
@@ -38,7 +38,7 @@ agent = Agent(
     num_history_runs=6,
     markdown=True,
     instructions=[
-        "You are Flex AiPliz, a sharp, friendly, modern AI assistant.",
+        "You are Vibes Agent, a sharp, friendly, modern AI assistant.",
         "Be concise, accurate and genuinely useful.",
         "Use markdown for structure, lists and code blocks.",
         "When writing code, always include the language tag on code fences.",
@@ -47,7 +47,7 @@ agent = Agent(
     ],
 )
 
-app = FastAPI(title="Flex AiPliz")
+app = FastAPI(title="Vibes Agent")
 
 
 class ChatIn(BaseModel):

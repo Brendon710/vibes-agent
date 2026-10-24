@@ -1,50 +1,25 @@
-# ⚡ Flex AiPliz
+# ⚡ Vibes Agent
 
-A free, self-hosted AI assistant built with **Agno** (formerly Phidata) + FastAPI.
-Sleek dark chat UI, markdown replies, per-session memory. Runs 100% on free tiers.
+Free, always-on AI assistant by Brendon Pikirai. Two runtimes, same agent:
 
-## Live in 5 minutes
+- **`worker.js`** — Cloudflare Workers version (currently live, free tier, no card, no sleeping)
+  Live at: https://vibes-agent.vibes-host.workers.dev
+- **`app.py` + `static/`** — Python version (Agno + FastAPI) for Render or your own VPS later
 
-1. **Groq API key** (free, no card): https://console.groq.com/keys
-2. **Deploy on Render**: click the button below, paste your Groq key when asked.
+## How it works
+Worker serves the UI and proxies chat to Groq (`openai/gpt-oss-120b`, free tier).
+Groq key is a Worker secret. Conversation history lives in the visitor's browser (localStorage), sent with each request — no server storage, no KV needed.
 
-   [![Deploy to Render](https://render.com/images/deploy-button.svg)](https://render.com/deploy?repo=https://github.com/Brendon710/flex-aipliz)
+## Deploy / update the Worker
+Needs Cloudflare API key + account. See `deploy.py` (upload script with secret binding).
 
-   *(No card needed — free plan. First load after idle takes ~1 min, that's Render waking it up.)*
-
-3. **Add to your website**:
-
+## Add to your website
 ```html
-<iframe src="https://flex-aipliz.onrender.com"
+<iframe src="https://vibes-agent.vibes-host.workers.dev"
         style="width:100%;height:640px;border:none;border-radius:16px"></iframe>
 ```
 
-## Switch model providers (all have free tiers)
+## Get a Groq key
+https://console.groq.com/keys (free, no card)
 
-Set the `FLEX_LLM` env var:
-
-| Provider | `FLEX_LLM` | Key needed | Default model |
-|---|---|---|---|
-| Groq (default, fastest) | `groq` | `GROQ_API_KEY` | `openai/gpt-oss-120b` |
-| Google Gemini | `gemini` | `GOOGLE_API_KEY` | `gemini-2.0-flash` |
-| OpenRouter | `openrouter` | `OPENROUTER_API_KEY` | `meta-llama/llama-3.3-70b-instruct:free` |
-
-Override the model with `FLEX_MODEL`.
-
-## Run locally
-
-```bash
-pip install -r requirements.txt
-export GROQ_API_KEY=gsk_...
-uvicorn app:app --port 7860
-# open http://localhost:7860
-```
-
-## Files
-
-- `app.py` — FastAPI server + Agno agent (chat history, markdown, provider switching)
-- `static/index.html` — the Flex AiPliz UI
-- `Dockerfile` — container used by Render
-- `render.yaml` — Render blueprint (auto-configures the service)
-
-Built by Brendon Pikirai · Vibes ecosystem ⚡
+Built for the Vibes ecosystem ⚡
