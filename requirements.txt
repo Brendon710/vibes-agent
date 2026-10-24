@@ -1,0 +1,8 @@
+agno
+fastapi
+uvicorn[standard]
+sqlalchemy
+greenlet
+groq
+google-genai
+openai
